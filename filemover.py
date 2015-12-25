@@ -4,12 +4,12 @@
 import ntpath, os, sys
 
 
-""" Set up default script variables """
+""" Set up global script variables """
 show = ""
 season = -1
 path = ""
 
-""" Store filepath """
+""" Stores the filepath in the path variable """
 temp = sys.argv[1]
 path = os.path.basename(temp)
 #if os.path.exists(temp):
@@ -25,11 +25,9 @@ def get_file_name(path):
 	
 
 
-""" Analyzes the file name to find TV show and season	"""
+""" Analyzes the file name and returns a tuple with TV show name and season """
 def analyze_file_name(file):
 	filename = get_file_name(str(file))
-	
-	#print filename
 	
 	showArray = []
 	seasonArray = []
@@ -37,11 +35,12 @@ def analyze_file_name(file):
 	i=0
 	
 	while flag:
-		# Check if char is the S in SXXEYY and if next is the first X
+		# Stores chars of show name until it reaches the SXXEYY part
 		if filename[i+1] is not "s" and not filename[i+2].isdigit():
 			showArray.append(" ") if filename[i] == "." else showArray.append(filename[i])
 			i+=1
 		else:
+		# Stores season number and ends loop
 			if int(filename[i+2]) is not 0:
 				seasonArray.append(filename[i+2])
 			seasonArray.append(filename[i+3])
@@ -51,13 +50,23 @@ def analyze_file_name(file):
 	
 	show = "".join(showArray)
 	
-	#print "Season: "+str(season)
-	#print "Show: "+show
-	
 	return show, season
+	
+
+""" Moves the file from downloads to the correct location """	
+def move_file(file):
+	filename = get_file_name(str(file))
+	filetuple = analyze_file_name(file)
+	
+	#print filename
+	#print filetuple
+	
+	os.rename(path, "path/to/christian/video"+filetuple[0]+"/Season "+str(filetuple[1])+"/"+filename)
+
+
 
 """ Run script """
-print analyze_file_name(str(path))
+move_file(str(path))
 
 
 
