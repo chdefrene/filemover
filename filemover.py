@@ -11,11 +11,11 @@ path = ""
 
 """ Store filepath """
 temp = sys.argv[1]
-#path = os.path.basename(temp)
+path = os.path.basename(temp)
 #if os.path.exists(temp):
 #	path = os.path.basename(temp)
 
-path = "Christian/Dropbox/Bilder/Profilbilder/Jekyll.And.Hyde.S01E08.Moroll.HDTV.x264-ORGANiC "
+#path = "Christian/Dropbox/Bilder/Profilbilder/Supernatural.S11E05.HDTV.x264-LOL "
 
 
 """ Returns the file name for any given path """	
