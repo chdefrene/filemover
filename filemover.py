@@ -43,13 +43,15 @@ def analyze_file_name(file):
 	i=0
 	
 	while flag:
+
+		
 		# Stores chars of show name until it reaches the SXXEYY part
-		if filename[i+1] is not "s" and not filename[i+2].isdigit():
+		if not filename[i+1].isdigit() and not filename[i+2].isdigit():
 			showArray.append(" ") if filename[i] == "." else showArray.append(filename[i])
 			i+=1
 		else:
 		# Stores season number and ends loop
-			if int(filename[i+2]) is not 0:
+			if int(filename[i+2]) != 0:
 				seasonArray.append(filename[i+2])
 			seasonArray.append(filename[i+3])
 			season = int("".join(seasonArray))
@@ -65,13 +67,12 @@ def analyze_file_name(file):
 def move_file(file):
 	filename = get_file_name(str(file))
 	filetuple = analyze_file_name(file)
+
 	
 	drivebase = "/media/Plex/Christian video/Favoritter Christian/"
 
-	oldpath = path
+	oldpath = temp
 	newpath = drivebase+filetuple[0]+"/Season "+str(filetuple[1])+"/"+filename
-	
-	#print newpath
 	
 	os.rename(oldpath, newpath)
 	
@@ -79,6 +80,3 @@ def move_file(file):
 
 """ Run script """
 move_file(str(path))
-
-
-
