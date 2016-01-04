@@ -4,6 +4,14 @@
 import ntpath, os, sys
 
 
+
+####################################
+######	Currently only works  ######
+######	with shows in 	      ######
+######	Favoritter Christian  ######
+####################################
+
+
 """ Set up global script variables """
 show = ""
 season = -1
@@ -11,11 +19,11 @@ path = ""
 
 """ Stores the filepath in the path variable """
 temp = sys.argv[1]
-path = os.path.basename(temp)
-#if os.path.exists(temp):
-#	path = os.path.basename(temp)
+#path = os.path.basename(temp)
+if os.path.exists(temp):
+	path = os.path.basename(temp)
 
-#path = "Christian/Dropbox/Bilder/Profilbilder/Supernatural.S11E05.HDTV.x264-LOL "
+#path = "Christian/Dropbox/Bilder/Profilbilder/Supernatural.S11E05.HDTV.x264-LOL"
 
 
 """ Returns the file name for any given path """	
@@ -53,21 +61,24 @@ def analyze_file_name(file):
 	return show, season
 	
 
-""" Moves the file from downloads to the correct location """	
+""" Moves the file from downloads to the correct location. Note: Must be located on the same disk! """	
 def move_file(file):
 	filename = get_file_name(str(file))
 	filetuple = analyze_file_name(file)
 	
-	#print filename
-	#print filetuple
-	
-	os.rename(path, "path/to/christian/video"+filetuple[0]+"/Season "+str(filetuple[1])+"/"+filename)
+	drivebase = "/media/Plex/Christian video/Favoritter Christian/"
 
+	oldpath = path
+	newpath = drivebase+filetuple[0]+"/Season "+str(filetuple[1])+"/"+filename
+	
+	#print newpath
+	
+	os.rename(oldpath, newpath)
+	
 
 
 """ Run script """
 move_file(str(path))
-
 
 
 
